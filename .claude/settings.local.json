@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter doctor 2>&1 | head -50)",
+      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter devices 2>&1)",
+      "Bash(flutter doctor:*)",
+      "Bash(flutter emulators:*)",
+      "Bash(yes | flutter doctor --android-licenses 2>&1 | tail -20)",
+      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter run -d emulator-5554 2>&1)"
+    ]
+  }
+}
