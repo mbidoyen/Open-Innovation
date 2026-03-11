@@ -8,7 +8,10 @@
       "Bash(yes | flutter doctor --android-licenses 2>&1 | tail -20)",
       "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter run -d emulator-5554 2>&1)",
       "Read(//d/EPSI/OpenInnovation/**)",
-      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter analyze 2>&1 | tail -5)"
+      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter analyze 2>&1 | tail -5)",
+      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter analyze lib/screens/settlements_screen.dart 2>&1 | tail -5)",
+      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter analyze lib/screens/settlements_screen.dart lib/data/mock_data.dart 2>&1 | tail -3)",
+      "Bash(cd \"D:\\\\EPSI\\\\OpenInnovation\\\\subsplit\" && flutter analyze lib/screens/home_screen.dart lib/screens/settlements_screen.dart 2>&1 | tail -3)"
     ]
   }
 }

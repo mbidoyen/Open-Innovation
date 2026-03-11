@@ -26,8 +26,10 @@ class _SettlementsScreenState extends State<SettlementsScreen> {
   @override
   void initState() {
     super.initState();
-    _settlements = List<Settlement>.from(MockData.settlements);
+    _settlements = MockData.settlements;
   }
+
+  String _debtKey(String fromId, String toId) => '${fromId}_$toId';
 
   void _showSettleModal(Debt debt, String groupId) {
     String selectedMethod = 'virement';
@@ -146,8 +148,8 @@ class _SettlementsScreenState extends State<SettlementsScreen> {
                           method: selectedMethod,
                         );
                         setState(() {
-                          _settlements.insert(0, settlement);
                           MockData.settlements.insert(0, settlement);
+                          MockData.settledKeys.add(_debtKey(debt.from, debt.to));
                         });
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -248,8 +250,9 @@ class _SettlementsScreenState extends State<SettlementsScreen> {
           .toList();
       final debts = DebtCalculator.calculate(groupExpenses);
       for (final debt in debts) {
-        if (debt.from == widget.currentUser.id ||
-            debt.to == widget.currentUser.id) {
+        if ((debt.from == widget.currentUser.id ||
+                debt.to == widget.currentUser.id) &&
+            !MockData.settledKeys.contains(_debtKey(debt.from, debt.to))) {
           pendingDebts.add(_DebtWithGroup(debt: debt, group: group));
         }
       }

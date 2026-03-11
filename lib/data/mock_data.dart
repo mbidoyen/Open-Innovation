@@ -65,6 +65,9 @@ class MockData {
     return getRecurringExpenses().fold(0.0, (sum, e) => sum + e.amount);
   }
 
+  // ── Settled debt keys (persist across tab switches) ──────────────────────
+  static final Set<String> settledKeys = {};
+
   // ── Settlements ──────────────────────────────────────────────────────────
   static final List<Settlement> settlements = [
     Settlement(

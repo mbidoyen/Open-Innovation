@@ -22,14 +22,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final debtMap = DebtCalculator.getDebtsForUser(expenses, currentUser.id);
-    final List<Debt> owes = debtMap['owes'] ?? [];
-    final List<Debt> owed = debtMap['owed'] ?? [];
-    final double netBalance =
-        DebtCalculator.getNetBalance(expenses, currentUser.id);
+    final List<Debt> owes = (debtMap['owes'] ?? [])
+        .where((d) => !MockData.settledKeys.contains('${d.from}_${d.to}'))
+        .toList();
+    final List<Debt> owed = (debtMap['owed'] ?? [])
+        .where((d) => !MockData.settledKeys.contains('${d.from}_${d.to}'))
+        .toList();
     final double totalOwed =
-        DebtCalculator.getTotalOwed(expenses, currentUser.id);
+        owes.fold(0.0, (s, d) => s + d.amount);
     final double totalToReceive =
-        DebtCalculator.getTotalToReceive(expenses, currentUser.id);
+        owed.fold(0.0, (s, d) => s + d.amount);
+    final double netBalance = totalToReceive - totalOwed;
 
     // Monthly total (recurring expenses involving user)
     final recurringExpenses = expenses.where((e) => e.isRecurring).toList();
