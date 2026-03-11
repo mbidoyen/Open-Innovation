@@ -90,6 +90,44 @@ class Debt {
   const Debt({required this.from, required this.to, required this.amount});
 }
 
+class Settlement {
+  final String id;
+  final String groupId;
+  final String fromUserId;
+  final String toUserId;
+  final double amount;
+  final DateTime date;
+  final String method; // 'virement', 'cash', 'lydia', 'paylib', 'revolut'
+
+  const Settlement({
+    required this.id,
+    required this.groupId,
+    required this.fromUserId,
+    required this.toUserId,
+    required this.amount,
+    required this.date,
+    this.method = 'virement',
+  });
+}
+
+class AppNotification {
+  final String id;
+  final String type; // 'subscription', 'expense', 'reminder', 'alert', 'invite'
+  final String title;
+  final String body;
+  final DateTime createdAt;
+  bool read;
+
+  AppNotification({
+    required this.id,
+    required this.type,
+    required this.title,
+    required this.body,
+    required this.createdAt,
+    this.read = false,
+  });
+}
+
 // Category emojis helper
 String categoryEmoji(String? category) {
   switch (category) {

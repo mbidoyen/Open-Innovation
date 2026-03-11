@@ -64,4 +64,70 @@ class MockData {
   static double getMonthlyTotal() {
     return getRecurringExpenses().fold(0.0, (sum, e) => sum + e.amount);
   }
+
+  // ── Settlements ──────────────────────────────────────────────────────────
+  static final List<Settlement> settlements = [
+    Settlement(
+      id: 's1',
+      groupId: '1',
+      fromUserId: '2',
+      toUserId: '1',
+      amount: 41.66,
+      date: DateTime(2025, 1, 18),
+      method: 'virement',
+    ),
+    Settlement(
+      id: 's2',
+      groupId: '2',
+      fromUserId: '4',
+      toUserId: '1',
+      amount: 34.0,
+      date: DateTime(2025, 1, 19),
+      method: 'lydia',
+    ),
+  ];
+
+  // ── Notifications ─────────────────────────────────────────────────────────
+  static final List<AppNotification> notifications = [
+    AppNotification(
+      id: 'n1',
+      type: 'subscription',
+      title: 'Loyer généré automatiquement',
+      body: 'Loyer Appartement 1 200 € a été ajouté ce mois-ci dans Colocation Paris.',
+      createdAt: DateTime(2025, 1, 1, 1, 0),
+      read: false,
+    ),
+    AppNotification(
+      id: 'n2',
+      type: 'expense',
+      title: 'Nouvelle dépense',
+      body: 'Marie a ajouté Netflix Premium 17,99 € dans Colocation Paris.',
+      createdAt: DateTime(2025, 1, 5, 14, 30),
+      read: false,
+    ),
+    AppNotification(
+      id: 'n3',
+      type: 'reminder',
+      title: 'Rappel de remboursement',
+      body: 'Fin de mois approche ! Vous avez des dettes en cours dans Colocation Paris.',
+      createdAt: DateTime(2025, 1, 28, 9, 0),
+      read: true,
+    ),
+    AppNotification(
+      id: 'n4',
+      type: 'subscription',
+      title: 'Électricité générée automatiquement',
+      body: 'Électricité EDF 85 € a été ajouté ce mois-ci dans Colocation Paris.',
+      createdAt: DateTime(2025, 1, 10, 1, 0),
+      read: true,
+    ),
+    AppNotification(
+      id: 'n5',
+      type: 'alert',
+      title: 'Budget mensuel dépassé',
+      body: 'Votre budget mensuel dans Colocation Paris a dépassé 500 €.',
+      createdAt: DateTime(2025, 1, 20, 18, 0),
+      read: false,
+    ),
+  ];
 }

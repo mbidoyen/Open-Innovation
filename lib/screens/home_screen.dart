@@ -3,17 +3,20 @@ import '../theme/app_theme.dart';
 import '../models/models.dart';
 import '../data/mock_data.dart';
 import '../utils/debt_calculator.dart';
+import 'notifications_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final AppUser currentUser;
   final List<Expense> expenses;
   final List<Group> groups;
+  final List<AppNotification> notifications;
 
   const HomeScreen({
     super.key,
     required this.currentUser,
     required this.expenses,
     required this.groups,
+    this.notifications = const [],
   });
 
   @override
@@ -77,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  _buildAvatarWidget(currentUser, 0),
+                  _buildNotifBell(context),
                 ],
               ),
               const SizedBox(height: 24),
@@ -257,6 +260,64 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildNotifBell(BuildContext context) {
+    final unread = notifications.where((n) => !n.read).length;
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => NotificationsScreen(
+            notifications: notifications,
+            onMarkAllRead: () {
+              for (final n in notifications) {
+                n.read = true;
+              }
+            },
+          ),
+        ),
+      ),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            width: 42,
+            height: 42,
+            decoration: BoxDecoration(
+              color: AppColors.card,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColors.borderMedium),
+              boxShadow: AppShadow.card,
+            ),
+            child: const Icon(Icons.notifications_outlined,
+                color: AppColors.textPrimary, size: 22),
+          ),
+          if (unread > 0)
+            Positioned(
+              top: -4,
+              right: -4,
+              child: Container(
+                width: 18,
+                height: 18,
+                decoration: const BoxDecoration(
+                  color: AppColors.error,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    unread > 9 ? '9+' : '$unread',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

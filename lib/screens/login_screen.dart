@@ -5,8 +5,9 @@ import '../data/mock_data.dart';
 
 class LoginScreen extends StatefulWidget {
   final void Function(AppUser user) onLogin;
+  final VoidCallback? onGoToRegister;
 
-  const LoginScreen({super.key, required this.onLogin});
+  const LoginScreen({super.key, required this.onLogin, this.onGoToRegister});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -235,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 20),
                       Center(
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: widget.onGoToRegister,
                           child: RichText(
                             text: const TextSpan(
                               text: 'Pas encore de compte ? ',
